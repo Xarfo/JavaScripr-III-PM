@@ -1,55 +1,71 @@
-/* The for principles of "this";
-* in your own words. explain the four principle for the "this" keyword below.
-*
-* 1. 
-* 2. 
-* 3. 
-* 4. 
-*
-* write out a code example of each explanation above
-*/
+//===================== Window binding
 
-// Principle 1
+// function greeting() {
+//   "use strict"
+//   console.log(this);
+// }
 
-function greeting() {
+// greeting();
 
-    //'use strict'
-    console.log(this);
-}
 
-console.log(greeting());
+//===================== Implicit (automatic) Binding
 
-// Principle 2
+// Look to the left of the invocation of method and there you will find your this keyword context
 
-const aniga = {
-    name: 'Abdul',
-    class: 'CS13',
-    speak: function () {
-        console.log(`my name is ${this.name}`)
+const hobbit = {
+    name: 'Samwise',
+    food: 'taters',
+    cook: function() {
+      console.log(`${this.name} cooks some ${this.food}`);
     }
-}
-
-aniga.speak();
-
-
-// Principle 3
-
-function FSW(name, location) {
-    this.name = name;
-    this.location = location;
-    this.speak = function () {
-        console.log(`We are ${this.name} in ${this.location} land`)
+  }
+  // hobbit is "this" for the cook method
+  // hobbit.cook();
+  
+  //===================== Explicit (we control this) Binding
+  
+  const person = {
+    name: 'Bob'
+  }
+  
+  const skills = ['HTML', 'CSS', 'JS'];
+  
+  function introduce(skills1, skills2, skills3) {
+    "use strict";
+    console.log(`Hello! My name is ${this.name}, and I like to program in ${skills1}, ${skills2}, ${skills3}`);
+  }
+  
+  // Call passes the this arg, and argument
+  //introduce.call(person, skills);
+  
+  // Apply seperates the values of an argument into an array 
+  //introduce.apply(person, skills);
+  
+  // Bind is "use this later!"
+  // const useLater = introduce.bind(person,...skills);
+  // useLater();
+  
+  
+  //===================== New (building new objects) Binding
+  
+  // Constructor Function
+  function CordialPerson(greeter){
+    this.greeter = greeter;
+    this.greeting = 'Hello';
+    this.speak = function() {
+      console.log(`${this.greeting}, ${this.greeter}`)
     }
-}
-
-var cohort = new FSW('Cohort16', 'Lambda');
-
-cohort.speak();
-cohort.name;
-
-
-// code example for New Binding
-
-// Principle 4
-
-// code example for Explicit Binding
+  }
+  
+  
+  // const jerry = {
+  //   name: 'jerry'
+  // }
+  
+  const jerry = new CordialPerson('Newman');
+  const newman = new CordialPerson('Jerry');
+  
+  console.log(jerry);
+  
+  jerry.speak();
+  newman.speak();
